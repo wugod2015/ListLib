@@ -99,9 +99,9 @@ public class SortListView extends LinearLayout implements AdapterView.OnItemClic
     public SortListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }*/
-    public void setAdapter(SortAdapter adapter, List<SortModel> sortList) {
-        this.sortList = sortList;
-        this.adapter=adapter;
+    public void setAdapter(SortAdapter adapter) {
+        this.sortList = adapter.sortList;
+        this.adapter = adapter;
         sortListView.setAdapter(adapter);
     }
 

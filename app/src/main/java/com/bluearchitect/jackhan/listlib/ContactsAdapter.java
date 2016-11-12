@@ -14,8 +14,8 @@ import java.util.List;
  * Created by Administrator on 2016/11/13 0013.
  */
 
-public class ContactsAdapter extends SortAdapter<ContactsAdapter.ContactsViewHolder> {
-    public ContactsAdapter(Context mContext, List<SortModel> list) {
+public class ContactsAdapter extends SortAdapter<ContactsAdapter.ContactsViewHolder,Contacts> {
+    public ContactsAdapter(Context mContext, List<Contacts> list) {
         super(mContext, list);
     }
 

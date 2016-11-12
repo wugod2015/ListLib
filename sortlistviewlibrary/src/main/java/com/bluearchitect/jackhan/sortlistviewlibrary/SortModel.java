@@ -11,6 +11,15 @@ public class SortModel {
 
     public void setSortName(String sortName) {
         this.sortName = sortName;
+
+        String pinyin = new CharacterParser().getSelling(sortName);
+        String sortString = pinyin.substring(0, 1).toUpperCase();
+
+        if (sortString.matches("[A-Z]")) {
+            setSortLetters(sortString.toUpperCase());
+        } else {
+            setSortLetters("#");
+        }
     }
 
     public String getSortLetters() {

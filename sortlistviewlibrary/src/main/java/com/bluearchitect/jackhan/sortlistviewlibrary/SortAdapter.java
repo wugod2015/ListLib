@@ -1,5 +1,6 @@
 package com.bluearchitect.jackhan.sortlistviewlibrary;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -11,40 +12,36 @@ import android.widget.FrameLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends BaseAdapter implements SectionIndexer {
-    public List<SortModel> list = null;
+public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem extends SortModel> extends BaseAdapter implements SectionIndexer {
+    public List<SortItem> sortList = null;
     public Context mContext;
     private int resource;
 
-    public SortAdapter(Context mContext, List<SortModel> list) {
-        this.mContext = mContext;
-        this.list = list;
-    }
+    public SortAdapter(Context mContext, List<SortItem> sortList) {
+        Collections.sort(sortList, new PinyinComparator());
 
-    public SortAdapter(Context mContext, List<SortModel> list, int resource) {
         this.mContext = mContext;
-        this.list = list;
-        this.resource = resource;
+        this.sortList = sortList;
     }
 
     /**
      * 当ListView数据发生变化时,调用此方法来更新ListView
      *
-     * @param list
+     * @param sortList
      */
-    public void updateListView(List<SortModel> list) {
-        this.list = list;
+    public void updateListView(List<SortItem> sortList) {
+        this.sortList = sortList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.list.size();
+        return this.sortList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return sortList.get(position);
     }
 
     @Override
@@ -55,7 +52,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends Bas
     @Override
     public View getView(final int position, View view, ViewGroup arg2) {
         VH viewHolder = null;
-        final SortModel sortModel = list.get(position);
+        final SortModel sortModel = sortList.get(position);
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_sortlist, null);
             viewHolder = onCreateViewHolder(view);
@@ -65,14 +62,14 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends Bas
         }
 
         setLetter(viewHolder.tvLetter, sortModel, position);
-        onBindViewHolder(viewHolder,sortModel, position);
+        onBindViewHolder(viewHolder, sortModel, position);
         return view;
 
     }
 
     public abstract VH onCreateViewHolder(View parent);
 
-    public abstract void onBindViewHolder(VH viewHolder,SortModel sortModel, int position);
+    public abstract void onBindViewHolder(VH viewHolder, SortModel sortModel, int position);
 
     public void setLetter(TextView letterTV, SortModel sortModel, int position) {
         //根据position获取分类的首字母的Char ascii值
@@ -90,7 +87,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends Bas
         TextView tvLetter;
         FrameLayout contentContainers;
 
-        public ViewHolder(View parentView,View childView) {
+        public ViewHolder(View parentView, View childView) {
             tvLetter = (TextView) parentView.findViewById(R.id.catalog);
             contentContainers = (FrameLayout) parentView.findViewById(R.id.content_container);
 
@@ -103,7 +100,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends Bas
      * 根据ListView的当前位置获取分类的首字母的Char ascii值
      */
     public int getSectionForPosition(int position) {
-        return list.get(position).getSortLetters().charAt(0);
+        return sortList.get(position).getSortLetters().charAt(0);
     }
 
     /**
@@ -111,7 +108,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends Bas
      */
     public int getPositionForSection(int section) {
         for (int i = 0; i < getCount(); i++) {
-            String sortStr = list.get(i).getSortLetters();
+            String sortStr = sortList.get(i).getSortLetters();
             char firstChar = sortStr.toUpperCase().charAt(0);
             if (firstChar == section) {
                 return i;
