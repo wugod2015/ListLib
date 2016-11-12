@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SortListView">
+        <attr name="letters_bg" format="color"></attr>
+        <attr name="letters_text_color" format="color"></attr>
+        <attr name="letters_text_size" format="dimension"></attr>
+        <attr name="sidebar_bg" format="color"></attr>
+        <attr name="sidebar_text_color" format="color"></attr>
+        <attr name="sidebar_text_size" format="dimension"></attr>
+    </declare-styleable>
+</resources>
