@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     private SortListView sortListView;
-    private SortAdapter adapter;
+    private ContactsAdapter adapter;
     private List<SortModel> SourceDateList;
 
     @Override
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         SourceDateList = filledData(getResources().getStringArray(com.bluearchitect.jackhan.sortlistviewlibrary.R.array.date));
 
         Collections.sort(SourceDateList, new PinyinComparator());
-        adapter = new SortAdapter(this, SourceDateList);
+        adapter = new ContactsAdapter(this, SourceDateList);
         sortListView.setAdapter(adapter,SourceDateList);
 
     }

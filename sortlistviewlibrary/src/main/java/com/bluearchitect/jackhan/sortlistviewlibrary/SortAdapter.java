@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-public class SortAdapter extends BaseAdapter implements SectionIndexer {
-    private List<SortModel> list = null;
-    private Context mContext;
+public abstract class SortAdapter<VH extends SortAdapter.ViewHolder> extends BaseAdapter implements SectionIndexer {
+    public List<SortModel> list = null;
+    public Context mContext;
     private int resource;
 
     public SortAdapter(Context mContext, List<SortModel> list) {
@@ -36,52 +37,65 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         notifyDataSetChanged();
     }
 
+    @Override
     public int getCount() {
         return this.list.size();
     }
 
+    @Override
     public Object getItem(int position) {
         return list.get(position);
     }
 
+    @Override
     public long getItemId(int position) {
         return position;
     }
 
+    @Override
     public View getView(final int position, View view, ViewGroup arg2) {
-        ViewHolder viewHolder = null;
-        final SortModel mContent = list.get(position);
+        VH viewHolder = null;
+        final SortModel sortModel = list.get(position);
         if (view == null) {
-            viewHolder = new ViewHolder();
-            view = LayoutInflater.from(mContext).inflate(R.layout.item, null);
-            viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
-            viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_sortlist, null);
+            viewHolder = onCreateViewHolder(view);
             view.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) view.getTag();
+            viewHolder = (VH) view.getTag();
         }
 
-        //根据position获取分类的首字母的Char ascii值
-        int section = getSectionForPosition(position);
-
-        //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-        if (position == getPositionForSection(section)) {
-            viewHolder.tvLetter.setVisibility(View.VISIBLE);
-            viewHolder.tvLetter.setText(mContent.getSortLetters());
-        } else {
-            viewHolder.tvLetter.setVisibility(View.GONE);
-        }
-
-        viewHolder.tvTitle.setText(this.list.get(position).getSortName());
-
+        setLetter(viewHolder.tvLetter, sortModel, position);
+        onBindViewHolder(viewHolder,sortModel, position);
         return view;
 
     }
 
+    public abstract VH onCreateViewHolder(View parent);
 
-    final static class ViewHolder {
+    public abstract void onBindViewHolder(VH viewHolder,SortModel sortModel, int position);
+
+    public void setLetter(TextView letterTV, SortModel sortModel, int position) {
+        //根据position获取分类的首字母的Char ascii值
+        int section = getSectionForPosition(position);
+        //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
+        if (position == getPositionForSection(section)) {
+            letterTV.setVisibility(View.VISIBLE);
+            letterTV.setText(sortModel.getSortLetters());
+        } else {
+            letterTV.setVisibility(View.GONE);
+        }
+    }
+
+    public class ViewHolder {
         TextView tvLetter;
-        TextView tvTitle;
+        FrameLayout contentContainers;
+
+        public ViewHolder(View parentView,View childView) {
+            tvLetter = (TextView) parentView.findViewById(R.id.catalog);
+            contentContainers = (FrameLayout) parentView.findViewById(R.id.content_container);
+
+            contentContainers.addView(childView);
+        }
     }
 
 
