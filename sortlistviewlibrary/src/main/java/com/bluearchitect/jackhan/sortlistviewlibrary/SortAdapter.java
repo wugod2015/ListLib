@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem extends SortModel> extends BaseAdapter implements SectionIndexer {
+    private int letters_bg;
+    private int letters_text_color;
+    private int letters_text_size;
+
     public List<SortItem> sortList = null;
     public Context mContext;
     private int resource;
@@ -71,6 +76,12 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
 
     public abstract void onBindViewHolder(VH viewHolder, SortModel sortModel, int position);
 
+    public void setLettersAttr(int letters_bg, int letters_text_color, int letters_text_size) {
+        this.letters_bg = letters_bg;
+        this.letters_text_color = letters_text_color;
+        this.letters_text_size = letters_text_size;
+    }
+
     public void setLetter(TextView letterTV, SortModel sortModel, int position) {
         //根据position获取分类的首字母的Char ascii值
         int section = getSectionForPosition(position);
@@ -81,6 +92,12 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
         } else {
             letterTV.setVisibility(View.GONE);
         }
+        if (letters_bg != 0)
+            letterTV.setBackgroundColor(letters_bg);
+        if (letters_text_color != 0)
+            letterTV.setTextColor(letters_text_color);
+        if (letters_text_size != 0)
+            letterTV.setTextSize(TypedValue.COMPLEX_UNIT_PX,letters_text_size);
     }
 
     public class ViewHolder {

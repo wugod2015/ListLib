@@ -2,5 +2,7 @@
 <resources>
     <color name="letters_bg">#E0E0E0</color>
     <color name="letters_text">#454545</color>
-    <color name="sidebar_text">#454545</color>
+    <color name="sidebar_text">#214162</color>
+    <color name="sidebar_text_pressed">#3399ff</color>
+    <color name="sort_dialog_text">#ffffffff</color>
 </resources>

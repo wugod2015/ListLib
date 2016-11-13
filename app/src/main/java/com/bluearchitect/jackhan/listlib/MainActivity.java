@@ -2,6 +2,9 @@ package com.bluearchitect.jackhan.listlib;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.bluearchitect.jackhan.sortlistviewlibrary.CharacterParser;
 import com.bluearchitect.jackhan.sortlistviewlibrary.PinyinComparator;
@@ -12,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
     private SortListView sortListView;
     private ContactsAdapter adapter;
-    private List<Contacts> SourceDateList;
+    private List<Contacts> contactsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +30,11 @@ public class MainActivity extends Activity {
     private void initViews() {
         sortListView = (SortListView) findViewById(R.id.sortListView);
 
-        SourceDateList = getContacts();
+        contactsList = getContacts();
 
-        adapter = new ContactsAdapter(this, SourceDateList);
+        adapter = new ContactsAdapter(this, contactsList);
         sortListView.setAdapter(adapter);
+        sortListView.sortListView.setOnItemClickListener(this);
 
     }
 
@@ -49,4 +53,8 @@ public class MainActivity extends Activity {
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(this, "click：" + contactsList.get(i).getContactsName(), Toast.LENGTH_SHORT).show();
+    }
 }

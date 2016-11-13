@@ -4,8 +4,14 @@
         <attr name="letters_bg" format="color"></attr>
         <attr name="letters_text_color" format="color"></attr>
         <attr name="letters_text_size" format="dimension"></attr>
-        <attr name="sidebar_bg" format="color"></attr>
+
+        <attr name="sidebar_bg" format="reference"></attr>
         <attr name="sidebar_text_color" format="color"></attr>
-        <attr name="sidebar_text_size" format="dimension"></attr>
+        <attr name="sidebar_text_color_pressed" format="color"></attr>
+        <attr name="sidebar_cell_spacing" format="dimension"></attr>
+
+        <attr name="dialog_bg" format="reference"></attr>
+        <attr name="dialog_text_color" format="color"></attr>
+        <attr name="dialog_text_size" format="dimension"></attr>
     </declare-styleable>
 </resources>

@@ -21,16 +21,19 @@ import java.util.List;
  * Created by Administrator on 2016/11/12 0012.
  */
 
-public class SortListView extends LinearLayout implements AdapterView.OnItemClickListener, SearchView.OnCloseListener, SideBar.OnTouchingLetterChangedListener, SearchView.OnQueryTextListener {
+public class SortListView extends LinearLayout implements SearchView.OnCloseListener, SideBar.OnTouchingLetterChangedListener, SearchView.OnQueryTextListener {
     private int letters_bg;
     private int letters_text_color;
     private int letters_text_size;
     private int sidebar_bg;
     private int sidebar_text_color;
-    private int sidebar_text_size;
+    private int sidebar_text_color_pressed;
+    private int sidebar_cell_spacing;
+    private int dialog_bg;
+    private int dialog_text_color;
+    private int dialog_text_size;
 
-
-    private ListView sortListView;
+    public ListView sortListView;
     private SideBar sideBar;
     private TextView dialog;
     private SortAdapter adapter;
@@ -63,14 +66,26 @@ public class SortListView extends LinearLayout implements AdapterView.OnItemClic
             } else if (attr == R.styleable.SortListView_letters_text_size) {
                 // 默认设置为16sp，TypeValue也可以把sp转化为px
                 letters_text_size = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+                        TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
             } else if (attr == R.styleable.SortListView_sidebar_bg) {
                 sidebar_bg = typedArray.getResourceId(attr, R.drawable.sidebar_background);
             } else if (attr == R.styleable.SortListView_sidebar_text_color) {
-                sidebar_text_color = typedArray.getColor(attr, getResources().getColor(R.color.sidebar_text));
-            } else if (attr == R.styleable.SortListView_sidebar_text_size) {
-                sidebar_text_size = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+                sidebar_text_color = typedArray.getColor(attr,
+                        getResources().getColor(R.color.sidebar_text));
+            } else if (attr == R.styleable.SortListView_sidebar_text_color_pressed) {
+                sidebar_text_color_pressed = typedArray.getColor(attr,
+                        getResources().getColor(R.color.sidebar_text_pressed));
+            } else if (attr == R.styleable.SortListView_sidebar_cell_spacing) {
+                sidebar_cell_spacing = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+            } else if (attr == R.styleable.SortListView_dialog_bg) {
+                dialog_bg = typedArray.getResourceId(attr, R.drawable.show_head_toast_bg);
+            } else if (attr == R.styleable.SortListView_dialog_text_color) {
+                dialog_text_color = typedArray.getColor(attr,
+                        getResources().getColor(R.color.sort_dialog_text));
+            } else if (attr == R.styleable.SortListView_dialog_text_size) {
+                dialog_text_size = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics()));
             }
 
         }
@@ -83,39 +98,60 @@ public class SortListView extends LinearLayout implements AdapterView.OnItemClic
 
         sideBar = (SideBar) findViewById(R.id.sidrbar);
         dialog = (TextView) findViewById(R.id.dialog);
+        if (dialog_bg != 0)
+            dialog.setBackgroundResource(dialog_bg);
+        if (dialog_text_size != 0)
+            dialog.setTextSize(dialog_text_size);
+        if (dialog_text_color != 0)
+            dialog.setTextColor(dialog_text_color);
         sideBar.setTextView(dialog);
+
+        sideBar.setViewAttr(sidebar_cell_spacing, sidebar_text_color,
+                sidebar_text_color_pressed, sidebar_bg);
 
         sideBar.setOnTouchingLetterChangedListener(this);
 
-        sortListView = (ListView) findViewById(R.id.country_lvcountry);
-        sortListView.setOnItemClickListener(this);
+        sortListView = (ListView) findViewById(R.id.sort_contentListView);
 
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
+        searchView.setIconified(false);
     }
-
-    /*@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+/*@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SortListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }*/
+
+    /**
+     * 给列表设置adapter
+     *
+     * @param adapter
+     */
     public void setAdapter(SortAdapter adapter) {
+        adapter.setLettersAttr(letters_bg, letters_text_color, letters_text_size);
         this.sortList = adapter.sortList;
         this.adapter = adapter;
         sortListView.setAdapter(adapter);
     }
 
 
-    private void filterData(String filterStr) {
+    /**
+     * 根据sortName查找数据
+     *
+     * @param filterSortName
+     */
+    private void filterData(String filterSortName) {
         List<SortModel> filterDateList = new ArrayList<SortModel>();
 
-        if (TextUtils.isEmpty(filterStr)) {
+        if (TextUtils.isEmpty(filterSortName)) {
             filterDateList = sortList;
         } else {
             filterDateList.clear();
             for (SortModel sortModel : sortList) {
                 String name = sortModel.getSortName();
-                if (name.indexOf(filterStr.toString()) != -1 || characterParser.getSelling(name).startsWith(filterStr.toString())) {
+                if (name.indexOf(filterSortName.toString()) != -1
+                        || characterParser.getSelling(name).startsWith(filterSortName.toString())) {
                     filterDateList.add(sortModel);
                 }
             }
@@ -125,10 +161,6 @@ public class SortListView extends LinearLayout implements AdapterView.OnItemClic
         adapter.updateListView(filterDateList);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
 
     @Override
     public boolean onClose() {

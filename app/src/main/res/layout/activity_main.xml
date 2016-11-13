@@ -8,7 +8,8 @@
     <com.bluearchitect.jackhan.sortlistviewlibrary.SortListView
         android:id="@+id/sortListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:letters_text_size="14sp">
 
     </com.bluearchitect.jackhan.sortlistviewlibrary.SortListView>
 
