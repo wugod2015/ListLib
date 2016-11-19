@@ -92,7 +92,7 @@ public class SideBar extends View {
             }
             // x坐标等于中间-字符串宽度的一半.
             float xPos = width / 2 - paint.measureText(b[i]) / 2;
-            float yPos = singleHeight * i + singleHeight/4*3;
+            float yPos = singleHeight * i + singleHeight / 4 * 3;
             canvas.drawText(b[i], xPos, yPos, paint);
             paint.reset();// 重置画笔
         }
@@ -114,6 +114,9 @@ public class SideBar extends View {
                 invalidate();
                 if (mTextDialog != null) {
                     mTextDialog.setVisibility(View.INVISIBLE);
+                }
+                if (listener != null) {
+                    listener.onTouchedUpLetter(b[c]);
                 }
                 break;
 
@@ -156,6 +159,8 @@ public class SideBar extends View {
      */
     public interface OnTouchingLetterChangedListener {
         public void onTouchingLetterChanged(String s);
+
+        public void onTouchedUpLetter(String s);
     }
 
 }

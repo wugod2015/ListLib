@@ -12,16 +12,19 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/11/12 0012.
  */
 
-public class SortListView extends LinearLayout implements SearchView.OnCloseListener, SideBar.OnTouchingLetterChangedListener, SearchView.OnQueryTextListener {
+public class SortListView extends LinearLayout implements SearchView.OnCloseListener, SideBar.OnTouchingLetterChangedListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
     private int letters_bg;
     private int letters_text_color;
     private int letters_text_size;
@@ -33,7 +36,7 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     private int dialog_text_color;
     private int dialog_text_size;
 
-    public ListView sortListView;
+    private ListView sortListView;
     private SideBar sideBar;
     private TextView dialog;
     private SortAdapter adapter;
@@ -112,6 +115,7 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
         sideBar.setOnTouchingLetterChangedListener(this);
 
         sortListView = (ListView) findViewById(R.id.sort_contentListView);
+        sortListView.setOnItemClickListener(this);
 
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(this);
@@ -161,6 +165,48 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
         adapter.updateListView(filterDateList);
     }
 
+    /**
+     * 根据首字字母获取所有首字
+     *
+     * @param letter
+     */
+    public Map<String, List<SortModel>> filterFristWordsByLetter(String letter) {
+        Map<String, List<SortModel>> fristWordsMap = new HashMap<>();
+
+        if (TextUtils.isEmpty(letter)) {
+            return fristWordsMap;
+        } else {
+            for (SortModel sortModel : sortList) {
+                if (letter.equals(sortModel.getSortLetters())) {
+                    String fristWord = sortModel.getSortName().substring(0, 1);
+                    if (fristWordsMap.containsKey(fristWord)) {
+                        fristWordsMap.get(fristWord).add(sortModel);
+                    } else {
+                        List<SortModel> sortModels = new ArrayList<>();
+                        sortModels.add(sortModel);
+                        fristWordsMap.put(fristWord, sortModels);
+                    }
+                }
+            }
+        }
+
+        return fristWordsMap;
+    }
+
+    /**
+     * 显示根据首字字母获取所有首字
+     *
+     * @param fristWordsMap
+     */
+    public void showFistWordsDialog(Map<String, List<SortModel>> fristWordsMap) {
+        if (fristWordsMap.size() > 0) {
+            for (Map.Entry<String, List<SortModel>> entry : fristWordsMap.entrySet()) {
+
+            }
+
+            Toast.makeText(getContext(), fristWordsMap.keySet().toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public boolean onClose() {
@@ -178,6 +224,11 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     }
 
     @Override
+    public void onTouchedUpLetter(String s) {
+        showFistWordsDialog(filterFristWordsByLetter(s));
+    }
+
+    @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
@@ -187,5 +238,26 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
 
         filterData(newText);
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        if (onItemClickListener != null)
+            onItemClickListener.onItemClick((SortModel) adapter.sortList.get(i), adapterView, view, i, l);
+    }
+
+    OnItemClickListener onItemClickListener;
+
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener<Item extends SortModel> {
+        void onItemClick(Item item, AdapterView<?> var1, View var2, int var3, long var4);
     }
 }

@@ -10,12 +10,13 @@ import com.bluearchitect.jackhan.sortlistviewlibrary.CharacterParser;
 import com.bluearchitect.jackhan.sortlistviewlibrary.PinyinComparator;
 import com.bluearchitect.jackhan.sortlistviewlibrary.SortAdapter;
 import com.bluearchitect.jackhan.sortlistviewlibrary.SortListView;
+import com.bluearchitect.jackhan.sortlistviewlibrary.SortModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends Activity implements SortListView.OnItemClickListener<Contacts> {
     private SortListView sortListView;
     private ContactsAdapter adapter;
     private List<Contacts> contactsList;
@@ -34,7 +35,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         adapter = new ContactsAdapter(this, contactsList);
         sortListView.setAdapter(adapter);
-        sortListView.sortListView.setOnItemClickListener(this);
+        sortListView.setOnItemClickListener(this);
 
     }
 
@@ -52,9 +53,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     }
 
-
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(this, "click：" + contactsList.get(i).getContactsName(), Toast.LENGTH_SHORT).show();
+    public void onItemClick(Contacts item, AdapterView<?> var1, View var2, int var3, long var4) {
+        Toast.makeText(this, "click：" + item.getContactsName(), Toast.LENGTH_SHORT).show();
     }
 }
