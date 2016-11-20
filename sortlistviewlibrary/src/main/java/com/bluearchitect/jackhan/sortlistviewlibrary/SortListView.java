@@ -218,7 +218,7 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
             firstWordsDialog.setFirstWords(fristWordsPositionMap);
             int firstWordsCellHeight = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
-            int firstWordsDialogHeight = firstWordsCellHeight * fristWordsPositionMap.size() / 3
+            int firstWordsDialogHeight = firstWordsCellHeight * (fristWordsPositionMap.size() / 3)
                     + firstWordsCellHeight * (fristWordsPositionMap.size() % 3 > 0 ? 1 : 0);
             firstWordsDialog.showAsDropDown(searchView, -w, itemH * position + itemH / 2 - firstWordsDialogHeight / 2, Gravity.RIGHT);
 

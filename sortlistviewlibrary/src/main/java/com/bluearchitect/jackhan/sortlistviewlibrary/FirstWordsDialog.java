@@ -1,6 +1,7 @@
 package com.bluearchitect.jackhan.sortlistviewlibrary;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -37,9 +38,6 @@ public class FirstWordsDialog extends PopupWindow implements AdapterView.OnItemC
         setContentView(gridView);
         setBackgroundDrawable(null);
 
-        int firstWordsCellHeight = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 35, context.getResources().getDisplayMetrics());
-        setWidth(firstWordsCellHeight * 3);
     }
 
     Map<String, Integer> firstWordsMap;
@@ -55,6 +53,12 @@ public class FirstWordsDialog extends PopupWindow implements AdapterView.OnItemC
         String[] strings = new String[firstWordsMap.size()];
         arrayAdapter.addAll(firstWordsMap.keySet().toArray(strings));
         arrayAdapter.notifyDataSetChanged();
+
+        int firstWordsCellHeight = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 35, getContentView().getResources().getDisplayMetrics());
+        int numColumns = firstWordsMap.size() > 3 ? 3 : firstWordsMap.size();
+        gridView.setNumColumns(numColumns);
+        setWidth(firstWordsCellHeight * (numColumns));
     }
 
     @Override
@@ -62,4 +66,34 @@ public class FirstWordsDialog extends PopupWindow implements AdapterView.OnItemC
 
         onItemClickListener.onItemClick((Integer) firstWordsMap.values().toArray()[i]);
     }
+
+    @Override
+    public void setTouchInterceptor(View.OnTouchListener l) {
+        super.setTouchInterceptor(l);
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+    }
+
+    @Override
+    public void showAsDropDown(View anchor, int xoff, int yoff, int gravity) {
+        timer.start();
+        super.showAsDropDown(anchor, xoff, yoff, gravity);
+    }
+
+    CountDownTimer timer = new CountDownTimer(2000, 10) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+        }
+
+        @Override
+        public void onFinish() {
+            if (isShowing())
+                dismiss();
+
+        }
+    };
 }
