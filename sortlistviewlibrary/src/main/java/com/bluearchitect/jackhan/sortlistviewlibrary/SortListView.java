@@ -1,11 +1,13 @@
 package com.bluearchitect.jackhan.sortlistviewlibrary;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -166,45 +168,61 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     }
 
     /**
-     * 根据首字字母获取所有首字
+     * 根据首字字母获取所有首字第一次出现的位置
      *
      * @param letter
      */
-    public Map<String, List<SortModel>> filterFristWordsByLetter(String letter) {
-        Map<String, List<SortModel>> fristWordsMap = new HashMap<>();
+    public Map<String, Integer> filterFristWordPositionsByLetter(String letter) {
+        Map<String, Integer> fristWordPositionMap = new HashMap<>();
 
         if (TextUtils.isEmpty(letter)) {
-            return fristWordsMap;
+            return fristWordPositionMap;
         } else {
-            for (SortModel sortModel : sortList) {
+            for (int i = 0; i < sortList.size(); i++) {
+                SortModel sortModel = sortList.get(i);
                 if (letter.equals(sortModel.getSortLetters())) {
                     String fristWord = sortModel.getSortName().substring(0, 1);
-                    if (fristWordsMap.containsKey(fristWord)) {
-                        fristWordsMap.get(fristWord).add(sortModel);
-                    } else {
-                        List<SortModel> sortModels = new ArrayList<>();
-                        sortModels.add(sortModel);
-                        fristWordsMap.put(fristWord, sortModels);
+                    if (!fristWordPositionMap.containsKey(fristWord)) {
+                        fristWordPositionMap.put(fristWord, i);
                     }
                 }
             }
         }
 
-        return fristWordsMap;
+        return fristWordPositionMap;
     }
+
+    FirstWordsDialog firstWordsDialog;
+
 
     /**
      * 显示根据首字字母获取所有首字
      *
-     * @param fristWordsMap
+     * @param fristWordsPositionMap
      */
-    public void showFistWordsDialog(Map<String, List<SortModel>> fristWordsMap) {
-        if (fristWordsMap.size() > 0) {
-            for (Map.Entry<String, List<SortModel>> entry : fristWordsMap.entrySet()) {
+    @SuppressLint("NewApi")
+    public void showFistWordsDialog(final Map<String, Integer> fristWordsPositionMap, final int position,
+                                    int w, int itemH) {
 
+        if (firstWordsDialog != null && firstWordsDialog.isShowing())
+            firstWordsDialog.dismiss();
+        if (fristWordsPositionMap.size() > 0) {
+            if (firstWordsDialog == null) {
+                firstWordsDialog = new FirstWordsDialog(getContext(), new FirstWordsDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        sortListView.setSelection(position);
+                    }
+                });
             }
+            firstWordsDialog.setFirstWords(fristWordsPositionMap);
+            int firstWordsCellHeight = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
+            int firstWordsDialogHeight = firstWordsCellHeight * fristWordsPositionMap.size() / 3
+                    + firstWordsCellHeight * (fristWordsPositionMap.size() % 3 > 0 ? 1 : 0);
+            firstWordsDialog.showAsDropDown(searchView, -w, itemH * position + itemH / 2 - firstWordsDialogHeight / 2, Gravity.RIGHT);
 
-            Toast.makeText(getContext(), fristWordsMap.keySet().toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), fristWordsPositionMap.keySet().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -223,9 +241,25 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
         }
     }
 
+    public boolean isShowFirstWordsByLetter() {
+        return isShowFirstWordsByLetter;
+    }
+
+    /**
+     * 是否显示字母检索后的所有首字母
+     *
+     * @param showFirstWordsByLetter
+     */
+    public void setShowFirstWordsByLetter(boolean showFirstWordsByLetter) {
+        isShowFirstWordsByLetter = showFirstWordsByLetter;
+    }
+
+    boolean isShowFirstWordsByLetter = false;
+
     @Override
-    public void onTouchedUpLetter(String s) {
-        showFistWordsDialog(filterFristWordsByLetter(s));
+    public void onTouchedUpLetter(String s, int position, int w, int itemH) {
+        if (isShowFirstWordsByLetter)
+            showFistWordsDialog(filterFristWordPositionsByLetter(s), position, w, itemH);
     }
 
     @Override

@@ -97,7 +97,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
         if (letters_text_color != 0)
             letterTV.setTextColor(letters_text_color);
         if (letters_text_size != 0)
-            letterTV.setTextSize(TypedValue.COMPLEX_UNIT_PX,letters_text_size);
+            letterTV.setTextSize(TypedValue.COMPLEX_UNIT_PX, letters_text_size);
     }
 
     public class ViewHolder {
@@ -128,6 +128,20 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
             String sortStr = sortList.get(i).getSortLetters();
             char firstChar = sortStr.toUpperCase().charAt(0);
             if (firstChar == section) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 根据分类的首字获取其第一次出现该首字的位置
+     */
+    public int getPositionByFirstWord(String word) {
+        for (int i = 0; i < getCount(); i++) {
+            String sortNameStr = sortList.get(i).getSortName();
+            if (sortNameStr.startsWith(word)) {
                 return i;
             }
         }

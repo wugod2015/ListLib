@@ -116,7 +116,7 @@ public class SideBar extends View {
                     mTextDialog.setVisibility(View.INVISIBLE);
                 }
                 if (listener != null) {
-                    listener.onTouchedUpLetter(b[c]);
+                    listener.onTouchedUpLetter(b[c], c, getWidth(), getHeight() /b.length);
                 }
                 break;
 
@@ -160,7 +160,7 @@ public class SideBar extends View {
     public interface OnTouchingLetterChangedListener {
         public void onTouchingLetterChanged(String s);
 
-        public void onTouchedUpLetter(String s);
+        public void onTouchedUpLetter(String s, int position, int w, int itemH);
     }
 
 }

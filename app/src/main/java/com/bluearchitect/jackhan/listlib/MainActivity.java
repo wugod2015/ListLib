@@ -35,6 +35,7 @@ public class MainActivity extends Activity implements SortListView.OnItemClickLi
 
         adapter = new ContactsAdapter(this, contactsList);
         sortListView.setAdapter(adapter);
+        sortListView.setShowFirstWordsByLetter(true);
         sortListView.setOnItemClickListener(this);
 
     }
