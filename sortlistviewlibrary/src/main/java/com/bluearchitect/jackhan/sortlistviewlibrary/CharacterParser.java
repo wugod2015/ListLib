@@ -98,7 +98,9 @@ public class CharacterParser {
     }
 
     /**
-     * 单字解析 * * @param str * @return
+     * 单字解析 * *
+     * @param str *
+     * @return
      */
     public String convert(String str) {
         String result = null;
@@ -117,7 +119,9 @@ public class CharacterParser {
     }
 
     /**
-     * 词组解析 * * @param chs * @return
+     * 词组解析
+     * @param chs 词组
+     * @return string
      */
     public String getSelling(String chs) {
         String key, value;

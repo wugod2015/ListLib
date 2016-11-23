@@ -132,7 +132,7 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     /**
      * 给列表设置adapter
      *
-     * @param adapter
+     * @param adapter 适配器
      */
     public void setAdapter(SortAdapter adapter) {
         adapter.setLettersAttr(letters_bg, letters_text_color, letters_text_size);
@@ -167,10 +167,12 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
         adapter.updateListView(filterDateList);
     }
 
+
     /**
      * 根据首字字母获取所有首字第一次出现的位置
      *
-     * @param letter
+     * @param letter 首字母
+     * @return 所有首字第一次出现位置的map
      */
     public Map<String, Integer> filterFristWordPositionsByLetter(String letter) {
         Map<String, Integer> fristWordPositionMap = new HashMap<>();
@@ -198,7 +200,10 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     /**
      * 显示根据首字字母获取所有首字
      *
-     * @param fristWordsPositionMap
+     * @param fristWordsPositionMap 所有首字
+     * @param position 字母位置
+     * @param w sidebar宽度
+     * @param itemH sidebar cell 高度
      */
     @SuppressLint("NewApi")
     public void showFistWordsDialog(final Map<String, Integer> fristWordsPositionMap, final int position,
@@ -246,9 +251,9 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     }
 
     /**
-     * 是否显示字母检索后的所有首字母
+     * 是否显示字母检索后的所有首字
      *
-     * @param showFirstWordsByLetter
+     * @param showFirstWordsByLetter 是否
      */
     public void setShowFirstWordsByLetter(boolean showFirstWordsByLetter) {
         isShowFirstWordsByLetter = showFirstWordsByLetter;

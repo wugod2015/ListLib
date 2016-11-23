@@ -26,12 +26,14 @@ public class SideBar extends View {
     private int textPressedColor = getResources().getColor(R.color.sidebar_text_pressed);
     private int cellSpacing = 24;
 
+
     /**
      * 设置sideBar属性
      *
-     * @param cellSpacing
-     * @param textColor
-     * @param sidebarBg
+     * @param cellSpacing cell间距
+     * @param textColor text颜色
+     * @param textPressedColor text touched颜色
+     * @param sidebarBg sidebar背景
      */
     public void setViewAttr(int cellSpacing, int textColor, int textPressedColor, int sidebarBg) {
 
@@ -116,7 +118,7 @@ public class SideBar extends View {
                     mTextDialog.setVisibility(View.INVISIBLE);
                 }
                 if (listener != null) {
-                    listener.onTouchedUpLetter(b[c], c, getWidth(), getHeight() /b.length);
+                    listener.onTouchedUpLetter(b[c], c, getWidth(), getHeight() / b.length);
                 }
                 break;
 
@@ -145,7 +147,7 @@ public class SideBar extends View {
     /**
      * 向外公开的方法
      *
-     * @param onTouchingLetterChangedListener
+     * @param onTouchingLetterChangedListener sidebar touching
      */
     public void setOnTouchingLetterChangedListener(
             OnTouchingLetterChangedListener onTouchingLetterChangedListener) {

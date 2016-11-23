@@ -1,0 +1,44 @@
+apply plugin: 'com.novoda.bintray-release'//添加
+
+// load properties
+Properties properties = new Properties()
+File localPropertiesFile = project.file("local.properties");
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+File projectPropertiesFile = project.rootProject.file('local.properties');
+if (projectPropertiesFile.exists()) {
+    properties.load(projectPropertiesFile.newDataInputStream())
+}
+
+// read properties
+def projectName = properties.getProperty("project.name")
+def projectGroupId = properties.getProperty("project.groupId")
+def projectArtifactId = properties.getProperty("project.artifactId")
+def projectVersionName = android.defaultConfig.versionName
+def projectPackaging = properties.getProperty("project.packaging")
+def projectSiteUrl = properties.getProperty("project.siteUrl")
+def projectGitUrl = properties.getProperty("project.gitUrl")
+def projectDesc = properties.getProperty("project.desc")
+def projectIssueUrl = properties.getProperty("project.issueUrl")
+
+def developerId = properties.getProperty("developer.id")
+def developerName = properties.getProperty("developer.name")
+def developerEmail = properties.getProperty("developer.email")
+
+def bintrayUser = properties.getProperty("bintray.user")
+def bintrayApikey = properties.getProperty("bintray.apikey")
+
+def javadocName = properties.getProperty("javadoc.name")
+
+group = projectGroupId
+
+//添加
+publish {
+    userOrg = developerName//bintray.com用户名
+    groupId = projectGroupId //jcenter上的路径
+    artifactId = projectArtifactId //项目名称
+    publishVersion = projectVersionName //版本号
+    desc = 'Oh hi, this is a nice description for a project, right?'//描述，不重要
+    website = projectSiteUrl//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
+}

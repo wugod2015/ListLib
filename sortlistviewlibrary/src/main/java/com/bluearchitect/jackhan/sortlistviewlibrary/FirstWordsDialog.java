@@ -45,7 +45,7 @@ public class FirstWordsDialog extends PopupWindow implements AdapterView.OnItemC
     /**
      * 设置firstWords
      *
-     * @param firstWordsMap
+     * @param firstWordsMap 首字位置map
      */
     public void setFirstWords(Map<String, Integer> firstWordsMap) {
         this.firstWordsMap = firstWordsMap;

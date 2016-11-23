@@ -32,7 +32,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
     /**
      * 当ListView数据发生变化时,调用此方法来更新ListView
      *
-     * @param sortList
+     * @param sortList 变化后的list
      */
     public void updateListView(List<SortItem> sortList) {
         this.sortList = sortList;
@@ -135,8 +135,11 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
         return -1;
     }
 
+
     /**
      * 根据分类的首字获取其第一次出现该首字的位置
+     * @param word 首字
+     * @return 位置
      */
     public int getPositionByFirstWord(String word) {
         for (int i = 0; i < getCount(); i++) {
