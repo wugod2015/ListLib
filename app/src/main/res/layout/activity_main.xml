@@ -9,7 +9,19 @@
         android:id="@+id/sortListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:letters_text_size="14sp">
+        app:dialog_bg="@drawable/show_head_toast_bg"
+        app:dialog_text_color="@color/sort_dialog_text"
+        app:dialog_text_size="15dp"
+        app:letters_bg="@color/letters_bg"
+        app:letters_text_color="@color/letters_text"
+        app:letters_text_size="14sp"
+        app:sidebar_bg="@drawable/sidebar_background"
+        app:sidebar_cell_spacing="4dp"
+        app:sidebar_text_color="@color/sidebar_text"
+        app:sidebar_text_color_pressed="@color/sidebar_text_pressed"
+        app:firstwords_dialog_bg="@drawable/first_word_bg"
+        app:firstwords_dialog_text_color="@color/firstwords_dialog_text"
+        app:firstwords_dialog_text_size="16sp">
 
     </com.bluearchitect.jackhan.sortlistviewlibrary.SortListView>
 

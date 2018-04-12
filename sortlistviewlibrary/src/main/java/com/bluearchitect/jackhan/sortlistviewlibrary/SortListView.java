@@ -39,6 +39,9 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
     private int dialog_bg;
     private int dialog_text_color;
     private int dialog_text_size;
+    private int firstwords_bg;
+    private int firstwords_text_color;
+    private int firstwords_text_size;
 
     private ListView sortListView;
     private SideBar sideBar;
@@ -93,6 +96,14 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
             } else if (attr == R.styleable.SortListView_dialog_text_size) {
                 dialog_text_size = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics()));
+            } else if (attr == R.styleable.SortListView_firstwords_dialog_bg) {
+                firstwords_bg = typedArray.getResourceId(attr, R.drawable.first_word_bg);
+            } else if (attr == R.styleable.SortListView_firstwords_dialog_text_color) {
+                firstwords_text_color = typedArray.getColor(attr,
+                        getResources().getColor(R.color.firstwords_dialog_text));
+            } else if (attr == R.styleable.SortListView_firstwords_dialog_text_size) {
+                firstwords_text_size = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 32, getResources().getDisplayMetrics()));
             }
 
         }
@@ -215,7 +226,7 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
             firstWordsDialog.dismiss();
         if (fristWordsPositionMap.size() > 0) {
             if (firstWordsDialog == null) {
-                firstWordsDialog = new FirstWordsDialog(getContext(), new FirstWordsDialog.OnItemClickListener() {
+                firstWordsDialog = new FirstWordsDialog(getContext(), firstwords_bg, firstwords_text_color, firstwords_text_size, new FirstWordsDialog.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
                         sortListView.setSelection(position);

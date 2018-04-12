@@ -5,4 +5,5 @@
     <color name="sidebar_text">#214162</color>
     <color name="sidebar_text_pressed">#3399ff</color>
     <color name="sort_dialog_text">#ffffffff</color>
+    <color name="firstwords_dialog_text">#ffffffff</color>
 </resources>

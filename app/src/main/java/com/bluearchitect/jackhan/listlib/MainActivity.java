@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements SortListView.OnItemClickLi
 
         adapter = new ContactsAdapter(this, contactsList);
         sortListView.setAdapter(adapter);
-        sortListView.setShowFirstWordsByLetter(true);
+        sortListView.setShowFirstWordsByLetter(true);//是否显示字母检索后的所有首字
         sortListView.setOnItemClickListener(this);
 
     }

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SortListView">
+        <!--字母标题-->
         <attr name="letters_bg" format="color"></attr>
         <attr name="letters_text_color" format="color"></attr>
         <attr name="letters_text_size" format="dimension"></attr>
 
+        <!--侧栏字母-->
         <attr name="sidebar_bg" format="reference"></attr>
         <attr name="sidebar_text_color" format="color"></attr>
         <attr name="sidebar_text_color_pressed" format="color"></attr>
         <attr name="sidebar_cell_spacing" format="dimension"></attr>
 
+        <!--字母弹窗-->
         <attr name="dialog_bg" format="reference"></attr>
         <attr name="dialog_text_color" format="color"></attr>
         <attr name="dialog_text_size" format="dimension"></attr>
+
+        <!--字母弹窗-->
+        <attr name="firstwords_dialog_bg" format="reference"></attr>
+        <attr name="firstwords_dialog_text_color" format="color"></attr>
+        <attr name="firstwords_dialog_text_size" format="dimension"></attr>
     </declare-styleable>
 </resources>
