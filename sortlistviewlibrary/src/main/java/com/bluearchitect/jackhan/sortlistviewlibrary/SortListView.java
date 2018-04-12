@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/11/12 0012.
+ * @author hhz
+ * @time 2016/11/12 16:44
+ * @description 字母检索List控件
  */
 
 public class SortListView extends LinearLayout implements SearchView.OnCloseListener, SideBar.OnTouchingLetterChangedListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
@@ -201,9 +203,9 @@ public class SortListView extends LinearLayout implements SearchView.OnCloseList
      * 显示根据首字字母获取所有首字
      *
      * @param fristWordsPositionMap 所有首字
-     * @param position 字母位置
-     * @param w sidebar宽度
-     * @param itemH sidebar cell 高度
+     * @param position              字母位置
+     * @param w                     sidebar宽度
+     * @param itemH                 sidebar cell 高度
      */
     @SuppressLint("NewApi")
     public void showFistWordsDialog(final Map<String, Integer> fristWordsPositionMap, final int position,

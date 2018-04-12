@@ -13,6 +13,12 @@ import android.widget.FrameLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+/**
+ * @author hhz
+ * @time 2016/11/13 16:42
+ * @description 字母检索适配器基类
+ */
+
 public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem extends SortModel> extends BaseAdapter implements SectionIndexer {
     private int letters_bg;
     private int letters_text_color;
@@ -138,6 +144,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
 
     /**
      * 根据分类的首字获取其第一次出现该首字的位置
+     *
      * @param word 首字
      * @return 位置
      */

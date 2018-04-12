@@ -3,7 +3,9 @@ package com.bluearchitect.jackhan.listlib;
 import com.bluearchitect.jackhan.sortlistviewlibrary.SortModel;
 
 /**
- * Created by Administrator on 2016/11/13 0013.
+ * @author hhz
+ * @time 2016/11/13 16:47
+ * @description 人员列表数据bean
  */
 
 public class Contacts extends SortModel {

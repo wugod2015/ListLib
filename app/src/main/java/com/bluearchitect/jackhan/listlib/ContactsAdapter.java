@@ -11,10 +11,12 @@ import com.bluearchitect.jackhan.sortlistviewlibrary.SortModel;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/11/13 0013.
+ * @author hhz
+ * @time 2016/11/13 16:46
+ * @description 人员列表适配器
  */
 
-public class ContactsAdapter extends SortAdapter<ContactsAdapter.ContactsViewHolder,Contacts> {
+public class ContactsAdapter extends SortAdapter<ContactsAdapter.ContactsViewHolder, Contacts> {
     public ContactsAdapter(Context mContext, List<Contacts> list) {
         super(mContext, list);
     }

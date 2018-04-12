@@ -8,8 +8,11 @@ package com.bluearchitect.jackhan.sortlistviewlibrary;
 
 
 /**
- * Java汉字转换为拼音
+ * @author hhz
+ * @time 2016/11/20 16:39
+ * @descriptionJava汉字转换为拼音
  */
+
 public class CharacterParser {
     private static int[] pyvalue = new int[]{-20319, -20317, -20304, -20295, -20292, -20283, -20265, -20257, -20242, -20230, -20051, -20036, -20032,
             -20026, -20002, -19990, -19986, -19982, -19976, -19805, -19784, -19775, -19774, -19763, -19756, -19751, -19746, -19741, -19739, -19728,
@@ -99,6 +102,7 @@ public class CharacterParser {
 
     /**
      * 单字解析 * *
+     *
      * @param str *
      * @return
      */
@@ -120,6 +124,7 @@ public class CharacterParser {
 
     /**
      * 词组解析
+     *
      * @param chs 词组
      * @return string
      */

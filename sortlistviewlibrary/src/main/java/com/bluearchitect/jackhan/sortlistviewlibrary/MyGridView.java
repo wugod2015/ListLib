@@ -4,8 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
+
 /**
- * Created by Administrator on 2016/11/20 0020.
+ * @author hhz
+ * @time 2016/11/20 16:40
+ * @description 自适应GridView
  */
 
 public class MyGridView extends GridView {

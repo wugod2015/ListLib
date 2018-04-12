@@ -17,7 +17,11 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/11/20 0020.
  */
-
+/**
+ * @author hhz
+ * @time 2016/11/20
+ * @descriptionJava
+ */
 public class FirstWordsDialog extends PopupWindow implements AdapterView.OnItemClickListener {
     GridView gridView;
     ArrayAdapter<String> arrayAdapter;

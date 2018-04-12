@@ -30,4 +30,4 @@ dependencies {
 }
 
 //引入bintrayUpload.gradle脚本
-apply from: "bintrayUpload_n.gradle"
+//apply from: "bintrayUpload_n.gradle"

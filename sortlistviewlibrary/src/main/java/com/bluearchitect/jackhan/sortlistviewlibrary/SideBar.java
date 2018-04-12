@@ -11,6 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * @author hhz
+ * @time 2016/11/13 16:42
+ * @description 字母检索Side控件
+ */
+
 public class SideBar extends View {
     // 触摸事件
     private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
@@ -30,10 +36,10 @@ public class SideBar extends View {
     /**
      * 设置sideBar属性
      *
-     * @param cellSpacing cell间距
-     * @param textColor text颜色
+     * @param cellSpacing      cell间距
+     * @param textColor        text颜色
      * @param textPressedColor text touched颜色
-     * @param sidebarBg sidebar背景
+     * @param sidebarBg        sidebar背景
      */
     public void setViewAttr(int cellSpacing, int textColor, int textPressedColor, int sidebarBg) {
 

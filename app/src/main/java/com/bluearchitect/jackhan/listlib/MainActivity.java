@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author hhz
+ * @time 2016/11/13 16:48
+ * @description 主界面
+ */
+
 public class MainActivity extends Activity implements SortListView.OnItemClickListener<Contacts> {
     private SortListView sortListView;
     private ContactsAdapter adapter;

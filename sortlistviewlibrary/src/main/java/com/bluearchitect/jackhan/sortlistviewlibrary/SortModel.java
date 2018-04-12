@@ -1,5 +1,11 @@
 package com.bluearchitect.jackhan.sortlistviewlibrary;
 
+/**
+ * @author hhz
+ * @time 2016/11/13 16:45
+ * @description 字母检索数据bean基类
+ */
+
 public class SortModel {
 
     private String sortName;   //显示的数据

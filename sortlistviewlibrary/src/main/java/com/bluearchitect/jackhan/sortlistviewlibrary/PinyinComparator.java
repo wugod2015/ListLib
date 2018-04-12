@@ -3,8 +3,11 @@ package com.bluearchitect.jackhan.sortlistviewlibrary;
 import java.util.Comparator;
 
 /**
- * @author xiaanming
+ * @author hhz
+ * @time 2016/11/20 16:41
+ * @description 拼音排序比较器
  */
+
 public class PinyinComparator implements Comparator<SortModel> {
 
     public int compare(SortModel o1, SortModel o2) {
