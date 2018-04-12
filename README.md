@@ -3,9 +3,9 @@
 * 字母检索后首字列表展示
 * 搜索功能
 ## 效果展示
-![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-200537.png)
-![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-200552.png)
-![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-203714.png)
+![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot1.png)
+![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot2.png)
+![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot3.png)
 ### 引用sortlistviewlibrary
 直接引用sortlistviewlibrary module源码，或者引用build/outputs下sortlistviewlibrary-release.aar包
 ### 使用
