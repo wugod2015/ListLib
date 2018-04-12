@@ -5,6 +5,7 @@
 ## 效果展示
 ![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-200537.png)
 ![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-200552.png)
+![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot_20180412-203714.png)
 ### 引用sortlistviewlibrary
 直接引用sortlistviewlibrary module源码，或者引用build/outputs下sortlistviewlibrary-release.aar包
 ### 使用
