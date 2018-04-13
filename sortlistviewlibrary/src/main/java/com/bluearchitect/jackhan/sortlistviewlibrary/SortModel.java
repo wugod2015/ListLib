@@ -1,20 +1,31 @@
 package com.bluearchitect.jackhan.sortlistviewlibrary;
 
+import android.text.TextUtils;
+
 /**
  * @author hhz
  * @time 2016/11/13 16:45
  * @description 字母检索数据bean基类
  */
 
-public class SortModel {
+public abstract class SortModel {
 
     private String sortName;   //显示的数据
     private String sortFirstWordSpell;  //数据首字拼音
     private String sortLetters;  //数据拼音的首字母
 
     public String getSortName() {
+        init();
         return sortName;
     }
+
+    public void init() {
+        if (TextUtils.isEmpty(sortName)) {
+            setSortName(bindSortName());
+        }
+    }
+
+    public abstract String bindSortName();
 
     public void setSortName(String sortName) {
         this.sortName = sortName;
@@ -35,6 +46,7 @@ public class SortModel {
     }
 
     public String getSortFirstWordSpell() {
+        init();
         return sortFirstWordSpell;
     }
 
@@ -43,6 +55,7 @@ public class SortModel {
     }
 
     public String getSortLetters() {
+        init();
         return sortLetters;
     }
 

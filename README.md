@@ -45,7 +45,7 @@ firstwords_dialog_bg：字母检索首字列表背景<br>
 firstwords_dialog_text_color：字母检索首字列表字体颜色<br>
 firstwords_dialog_text_size：字母检索首字列表字体大小<br>
 <br>
-数据bean要继承SortModel，并且调用setSortName(contactsName)方法，配置需检索的字段<br>
+数据bean要继承SortModel，并且复写bindSortName()方法，配置需检索的字段<br>
 ```
 public class Contacts extends SortModel {
 
@@ -57,9 +57,12 @@ public class Contacts extends SortModel {
 
     public void setContactsName(String contactsName) {
         this.contactsName = contactsName;
-        setSortName(contactsName);
     }
 
+    @Override
+    public String bindSortName() {
+        return contactsName;
+    }
 }
 ```
 

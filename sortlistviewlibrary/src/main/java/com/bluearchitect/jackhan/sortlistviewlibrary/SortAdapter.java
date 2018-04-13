@@ -63,6 +63,7 @@ public abstract class SortAdapter<VH extends SortAdapter.ViewHolder, SortItem ex
     @Override
     public View getView(final int position, View view, ViewGroup arg2) {
         VH viewHolder = null;
+        //sortList.get(position).setSortName();
         final SortModel sortModel = sortList.get(position);
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_sortlist, null);

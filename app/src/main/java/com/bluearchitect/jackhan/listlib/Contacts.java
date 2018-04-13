@@ -18,7 +18,10 @@ public class Contacts extends SortModel {
 
     public void setContactsName(String contactsName) {
         this.contactsName = contactsName;
-        setSortName(contactsName);
     }
 
+    @Override
+    public String bindSortName() {
+        return contactsName;
+    }
 }
