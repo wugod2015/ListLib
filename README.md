@@ -3,7 +3,7 @@
 * 字母检索后首字列表展示
 * 搜索功能
 ## 效果展示
-![](https://github.com/wugod2015/ListLib/raw/master/art/ListLib4.gif)
+![](https://github.com/wugod2015/ListLib/raw/master/art/ListLib4.gif)<br>
 ![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot4.png)
 ![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot2.png)
 ![](https://github.com/wugod2015/ListLib/raw/master/art/Screenshot3.png)
